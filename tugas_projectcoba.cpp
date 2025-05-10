@@ -19,6 +19,7 @@ void tambahadataLL(const char namaproduk[], int stokproduk, float hargaproduk);
 void membacafile();
 void simpanKeFile();
 void hapusLinkedList();
+void bubbleSort();
 
 int main() {
     int pilihmenu, jumlahdata;
@@ -77,6 +78,24 @@ int main() {
                 system("cls");
                 break;
             }
+            
+             case 5:
+            membacafile();
+            bubbleSort();
+            cout << "Data berhasil diurutkan sesuai abjad (A-Z)\n";
+            {
+                int nomorurut = 1;
+                dataproduk* tampil = kepala;
+                while (tampil != NULL) {
+                    cout << nomorurut++ << ". Nama produk   : " << tampil->namaproduk << endl;
+                    cout << "   Stok produk   : " << tampil->stokproduk << endl;
+                    cout << "   Harga produk  : " << fixed << setprecision(2) << tampil->hargaproduk << endl;
+                    tampil = tampil->next;
+                }
+            }
+            system("pause");
+            system("cls");
+            break;
 
             case 7:
                 cout << "Terima kasih telah menggunakan program ini." << endl;
@@ -149,4 +168,28 @@ void membacafile() {
         tambahadataLL(namaproduk, stokproduk, hargaproduk);
     }
     fclose(databarang);
+}
+
+void bubbleSort() {
+    if (kepala == NULL || kepala->next == NULL) return;
+
+    bool swapped;
+    dataproduk *ptr1;
+    dataproduk *lptr = NULL;
+
+    do {
+        swapped = false;
+        ptr1 = kepala;
+
+        while (ptr1->next != lptr) {
+            if (strcmp(ptr1->namaproduk, ptr1->next->namaproduk) > 0) {
+                swap(ptr1->namaproduk, ptr1->next->namaproduk);
+                swap(ptr1->stokproduk, ptr1->next->stokproduk);
+                swap(ptr1->hargaproduk, ptr1->next->hargaproduk);
+                swapped = true;
+            }
+            ptr1 = ptr1->next;
+        }
+        lptr = ptr1;
+    } while (swapped);
 }
