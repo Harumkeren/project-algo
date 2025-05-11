@@ -27,6 +27,7 @@ void TampilkanProduk();
 void EditProduk(const char editproduk[]);
 void CariDataLinear(const char carinama[]);
 void bubbleSort();
+void transaksi();
 
 int main() {
     int pilihmenu, jumlahdata, stokproduk;
@@ -41,7 +42,8 @@ int main() {
         cout << "4. TAMPILKAN DATA PRODUK" << endl;
         cout << "5. URUTKAN DATA PRODUK" << endl;
         cout << "6. CARI DATA PRODUK" << endl;
-        cout << "7. KELUAR DARI PROGRAM" << endl;
+        cout << "7. TRANSAKSI" << endl;
+        cout << "8. KELUAR DARI PROGRAM" << endl;
         cout << "Pilih menu: ";
         cin >> pilihmenu;
         cin.ignore();
@@ -117,7 +119,6 @@ int main() {
                 cout << "Pilihan tidak valid!" << endl;
             }
                 break;
-                break;
             case 6: {
                     char carinama[100];
                     cout << "Masukkan nama produk yang ingin dicari: "; cin.getline(carinama, 100);
@@ -127,6 +128,11 @@ int main() {
                     break;
                 } break;
             case 7:
+                    transaksi();
+                    system("pause");
+                    system("cls");
+                    break;
+            case 8:
                     cout << "Terima kasih telah menggunakan program ini." << endl;
                     HapusLinkedList();
                 return 0;
@@ -368,4 +374,75 @@ void CariDataLinear(const char carinama[]) {
     if (!ditemukan) {
         cout << "Produk dengan nama '" << carinama << "' tidak ditemukan.\n";
     }
+}
+
+void transaksi(){
+    BacaFile();
+    if (kepala == NULL)
+    {
+        cout << "Tidak ada produk tersedia untuk transaksi.\n";
+    }
+    char transNama[100];
+    int jumlahTrans;
+    float total = 0;
+    bool transLagi = true;
+
+    struct Transaksi
+    {
+        char nama[100];
+        int jumlah;
+        float harga;
+
+    }keranjang[100];
+
+    int idx = 0;
+
+    while (transLagi)
+    {
+        TampilkanProduk();
+        cout << "Masukkan nama produk yang ingin anda beli\n";
+        cin.getline(transNama, 100);
+
+        dataproduk* produk = kepala;
+        while (produk != NULL && strcmp(produk->namaproduk, transNama) != 0){
+            produk = produk->next;
+        }
+
+        if (produk == NULL){
+            cout << "Produk tidak ditemukan.\n";
+        } else {
+            cout << "Masukkan jumlah yang ingin dibeli: ";
+            cin >> jumlahTrans;
+            cin.ignore();
+
+            if (jumlahTrans > produk->stokproduk){
+                cout << "Stok tidak mencukupi. Stok yang tersedia: " << produk->stokproduk << endl;
+            }else{
+                produk->stokproduk -= jumlahTrans;
+                strcpy(keranjang[idx].nama, produk->namaproduk);
+                keranjang[idx].jumlah = jumlahTrans;
+                keranjang[idx].harga = produk->hargaproduk;
+                total += jumlahTrans * produk->hargaproduk;
+                idx++;
+                cout << "Produk berhasil ditambahkan ke keranjang.\n";
+            }
+        }
+        char pilihan;
+        cout << "Beli produk lain? (y/n): ";
+        cin >> pilihan;
+        cin.ignore();
+        if (pilihan == 'n' || pilihan == 'N'){
+            transLagi = false;
+        }
+    }
+    SimpanKeFile();
+
+    cout << "----- NOTA -----\n";
+    for (int i = 0; i < idx; i++){
+        cout << keranjang[i].nama << " x " << keranjang[i].jumlah 
+        << " = Rp" << fixed << setprecision(2) << (keranjang[i].jumlah * keranjang[i].harga) << endl;    
+    }
+    cout << "----------------\n";
+    cout << "TOTAL: Rp" << fixed << setprecision(2) << total << endl;
+    cout << "----------------\n";
 }
