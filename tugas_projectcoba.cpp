@@ -19,13 +19,14 @@ void TambahaData(const char namaproduk[], int stokproduk, float hargaproduk);
 void BacaFile();
 void SimpanKeFile();
 void HapusLinkedList();
-void sorting();
+void sortingNama();
 void Bagi2List(dataproduk* kepala, dataproduk** setengahkanan, dataproduk** setengahkiri);
 void MergeSort(dataproduk** kepalasorting);
 void HapusProduk(const char hapusnamaproduk[]);
 void TampilkanProduk();
 void EditProduk(const char editproduk[]);
 void CariDataLinear(const char carinama[]);
+void bubbleSort();
 
 int main() {
     int pilihmenu, jumlahdata, stokproduk;
@@ -89,13 +90,33 @@ int main() {
                     system("cls");
                 break;
             case 5:
-                    BacaFile();
-                    sorting();
-                    SimpanKeFile();
-                    cout << "Data berhasil diurutkan sesuai abjad (A-Z)\n";
-                    TampilkanProduk();
-                    system("pause");
-                    system("cls");
+                    int pilihSort;
+            cout << "Menu Pengurutan\n";
+            cout << "1. Berdasarkan abjad (A-Z)\n";
+            cout << "2. Berdasarkan harga\n";
+            cout << "Pilih menu : ";cin >> pilihSort;
+            cout << " ";
+            if (pilihSort == 1) { 
+                BacaFile();
+                sortingNama();
+                SimpanKeFile();
+                TampilkanProduk();
+                system("pause");
+                system("cls");
+            } 
+            else if (pilihSort == 2) { 
+                BacaFile();
+                bubbleSort();
+                SimpanKeFile();
+                cout << "Data berhasil diurutkan berdasarkan harga\n";
+                TampilkanProduk();
+                system("pause");
+                system("cls");
+            } 
+            else {
+                cout << "Pilihan tidak valid!" << endl;
+            }
+                break;
                 break;
             case 6: {
                     char carinama[100];
@@ -178,13 +199,13 @@ void BacaFile() {
     fclose(databarang);
 }
 
-void sorting() {
+void sortingNama() {
     if (kepala == NULL || kepala->next == NULL) {
         cout << "Tidak ada cukup data untuk diurutkan.\n";
         return;
     }
     MergeSort(&kepala);
-    cout << "Data berhasil diurutkan dengan Merge Sort (A-Z).\n";
+    cout << "Data berhasil diurutkan berdasarkan nama (A-Z).\n";
     SimpanKeFile();
 }
 
@@ -301,6 +322,30 @@ void MergeSort(dataproduk** kepalasorting) {
     MergeSort(&setengahkanan);
     MergeSort(&setengahkiri);
     *kepalasorting = Pengurutan(setengahkanan, setengahkiri);
+}
+
+void bubbleSort() {
+    if (kepala == NULL || kepala->next == NULL) return;
+
+    bool swapped;
+    dataproduk *ptr1;
+    dataproduk *lptr = NULL;
+
+    do {
+        swapped = false;
+        ptr1 = kepala;
+
+        while (ptr1->next != lptr) {
+            if (ptr1->hargaproduk < ptr1->next->hargaproduk) {
+                swap(ptr1->namaproduk, ptr1->next->namaproduk);
+                swap(ptr1->stokproduk, ptr1->next->stokproduk);
+                swap(ptr1->hargaproduk, ptr1->next->hargaproduk);
+                swapped = true;
+            }
+            ptr1 = ptr1->next;
+        }
+        lptr = ptr1;
+    } while (swapped);
 }
 
 void CariDataLinear(const char carinama[]) {
