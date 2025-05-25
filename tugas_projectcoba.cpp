@@ -256,16 +256,16 @@ void TampilkanProduk() {
     int nomorurut = 1;
     dataproduk* nodetampilkandata = kepala;
     cout << "DAFTAR BARANG YANG TERSEDIA DI TOKO ABCD\n";
-    cout << setfill('=') << setw(69) << "=" << setfill(' ') << endl;
+    cout << setfill('=') << setw(76) << "=" << setfill(' ') << endl;
     cout << left << setw(5) << "NO"
     << setw(2) << "|"
     << setw(40) << "NAMA PRODUK"
     << setw(2) << "|"
     << setw(8) << "STOK"
     << setw(4) << "|"
-    << setw(7) << "HARGA" 
+    << setw(14) << "HARGA" 
     << setw(6) << "|"<< endl;
-    cout << setfill('=') << setw(69) << "=" << setfill(' ') << endl;
+    cout << setfill('=') << setw(76) << "=" << setfill(' ') << endl;
     while (nodetampilkandata != nullptr) {
         cout << left << setw(5) << nomorurut++
             << setw(2) << "|"
@@ -273,12 +273,12 @@ void TampilkanProduk() {
             << setw(2) << "|"
             << setw(8) << nodetampilkandata->stokproduk
             << setw(4) << "| Rp."
-            << setw(6) << nodetampilkandata->hargaproduk 
+            << setw(13) << nodetampilkandata->hargaproduk 
             << setw(6) << "|"<< endl;
 
         nodetampilkandata = nodetampilkandata->next;
     }
-    cout << setfill('=') << setw(69) << "=" << setfill(' ') << endl;
+    cout << setfill('=') << setw(76) << "=" << setfill(' ') << endl;
 }
 
 void EditProduk(const char editproduk[]){
