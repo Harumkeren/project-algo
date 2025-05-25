@@ -35,7 +35,7 @@ int main() {
     float hargaproduk;
     BacaFile();
     do {
-        cout << "===== MENU =====" << endl;
+        cout << "========= MENU =========" << endl;
         cout << "1. INPUT DATA PRODUK" << endl;
         cout << "2. HAPUS DATA PRODUK" << endl;
         cout << "3. EDIT DATA PRODUK" << endl;
@@ -44,6 +44,7 @@ int main() {
         cout << "6. CARI DATA PRODUK" << endl;
         cout << "7. TRANSAKSI" << endl;
         cout << "8. KELUAR DARI PROGRAM" << endl;
+        cout << "========================" << endl;
         cout << "Pilih menu: "; cin >> pilihmenu;
         cin.ignore();
         system("cls");
@@ -94,10 +95,13 @@ int main() {
                 break;
             case 5:
                     int pilihSort;
+                    cout << "==========================\n";
                     cout << "Menu Pengurutan\n";
-                    cout << "1. Berdasarkan abjad (A-Z)\n";
-                    cout << "2. Berdasarkan harga\n";
-                    cout << "Pilih menu : "; cin >> pilihSort;
+                    cout << "==========================\n";
+                    cout << "1. BERDASARKAN ABJAD (A-Z)\n";
+                    cout << "2. BERDASARKAN HARGA\n";
+                    cout << "==========================\n";
+                    cout << "Pilih menu: "; cin >> pilihSort;
                     cout << " ";
                     if (pilihSort == 1) { 
                         
@@ -355,10 +359,13 @@ void bubbleSort() {
     dataproduk *ptr1;
     dataproduk *lptr = NULL;
     int pilihsort;
-    cout << "menu bubble sort : " << endl;
+    cout << "----------------------------------------------------------" << endl;
+    cout << "MENU PENGURUTAN HARGA" << endl;
+    cout << "----------------------------------------------------------" << endl;
     cout << "1. DARI YANG PALING MURAH KE YANG PALING MAHAL (ASCENDING)" << endl;
     cout << "2. DARI YANG PALING MAHAL KE YANG PALING MURAH (DESCENDING)" << endl;
-    cout << "pilih sort : "; cin >> pilihsort;
+    cout << "----------------------------------------------------------" << endl;
+    cout << "Pilih metode: "; cin >> pilihsort;
     switch (pilihsort) {
     case 1:
         do {
